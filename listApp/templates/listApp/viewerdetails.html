@@ -1,0 +1,12 @@
+{% extends "listApp/base.html" %}
+{% load extras %}
+{% load crispy_forms_tags %}
+{% block content %}
+	<br />
+	<article class="media content-section">
+	  <div class="media-body">
+	    <h2 class="article-title">{{ viewer.viewer }}</h2><br />
+	    <a class="btn btn-danger" href="{% url 'viewer-delete' viewer.id %}">Remove Access</a>
+	  </div>
+	</article>
+{% endblock content %}

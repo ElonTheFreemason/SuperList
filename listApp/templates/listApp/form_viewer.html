@@ -1,0 +1,17 @@
+{% extends "listApp/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+	<br />
+	<div class="content-section">
+		<h1 style="font-family: Designer Block"> Share your list</h1>
+		<form method="POST">
+			{% csrf_token %}
+			<fieldset class="form-group">
+				{{ form | crispy }}
+				<div class="form-group">
+					<button class="btn btn-outline-info">Share</button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+{% endblock content %}

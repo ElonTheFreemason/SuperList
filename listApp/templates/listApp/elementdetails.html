@@ -1,0 +1,32 @@
+{% extends "listApp/base.html" %}
+{% load extras %}
+{% load crispy_forms_tags %}
+{% block content %}
+	<br />
+	<article class="media content-section">
+	  <div class="media-body">
+	    <h2 class="article-title">{{ element.name }}</h2>
+	    <ul>
+		{% with element.links|splitSemicolons as allLinks %}
+    		{% for link in allLinks %}
+    			{% if link|length > 1 %}
+	    			<li><a href="{{ link }}" target="_blank">{{ link }}</a></li>
+	    		{% endif %}
+    		{% endfor %}
+		{% endwith %}
+    	{% with element.images|splitSemicolons as allImages %}
+    		{% for image in allImages %}
+    			{% if image|length > 1 %}
+	    			<img src="{{ image }}" height="200" style="margin-top: 10px; margin-right: 20px" />
+	    		{% endif %}
+    		{% endfor %}
+		{% endwith %}
+		<br /><br />
+		</ul>
+	    {% if element.author == user %}
+	    	<a class="btn btn-info" href="{% url 'element-update' element.id %}">Edit Element</a>
+	    	<a class="btn btn-danger" href="{% url 'element-delete' element.id %}">Delete Element</a>
+	    {% endif %}
+	  </div>
+	</article>
+{% endblock content %}

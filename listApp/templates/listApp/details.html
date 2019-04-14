@@ -1,0 +1,61 @@
+{% extends "listApp/base.html" %}
+{% load extras %}
+{% load crispy_forms_tags %}
+{% block content %}
+	<br />
+	<article class="media content-section">
+	  <div class="media-body">
+	    <div class="article-metadata">
+	      <span class="mr-2">{{ list.author }}</span>
+	    </div>
+	    <h2 class="article-title">{{ list.title }}</h2>
+	    <h5>{{ list.description }}</h5>
+	    {% for element in elements %}
+	    	<hr />
+	    	<ul>
+	    	<li><h5><a class="article-title" href="{% url 'element-detail' element.id %}">{{ element.name }}</a></h5></li>
+	    	<ul>
+	    		{% with element.links|splitSemicolons as allLinks %}
+		    		{% for link in allLinks %}
+		    			{% if link|length > 1 %}
+			    			<li><a href="{{ link }}" target="_blank">{{ link }}</a></li>
+			    		{% endif %}
+		    		{% endfor %}
+	    		{% endwith %}
+	    	</ul>
+	    	{% with element.images|splitSemicolons as allImages %}
+	    		{% for image in allImages %}
+	    			{% if image|length > 1 %}
+		    			<img src="{{ image }}" height="200" style="margin-top: 10px; margin-right: 20px" />
+		    		{% endif %}
+	    		{% endfor %}
+    		{% endwith %}
+    		</ul>
+	    {% endfor %}
+	    <br /><br />
+	    {% if list.author == user %}
+	    	<hr />
+	    	<h3 style="font-family: Designer Block"> Add a new element to your list</h3>
+	    	<form method="POST">
+				{% csrf_token %}
+				<fieldset class="form-group">
+					{{ element_form | crispy }}
+					<div class="form-group">
+						<button class="btn btn-outline-info">Add Element</button>
+					</div>
+				</fieldset>
+			</form>
+			{% if viewers|length != 0 %}
+				{% for viewer in viewers %}
+					<span>The following users can see this list: </span>
+					<ul><li><a href="{% url 'viewer-detail' viewer.id %}">{{ viewer.viewer }}</a></li></ul>
+					<br />
+				{% endfor %}
+			{% endif %}
+	    	<a class="btn btn-info" href="{% url 'list-update' list.id %}">Edit List</a>
+	    	<a class="btn btn-success" href="{% url 'viewer-create' list.id %}">Share List</a>
+	    	<a class="btn btn-danger" href="{% url 'list-delete' list.id %}">Delete List</a>
+	    {% endif %}
+	  </div>
+	</article>
+{% endblock content %}

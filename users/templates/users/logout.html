@@ -1,0 +1,9 @@
+{% extends "listApp/base.html" %}
+{% block content %}
+	<h1 style="font-family: Designer Block"> You have been logged out successfully</h1>
+		<div class="border-top pt-3">
+			<small class="text-muted">
+				Log In <a href="{% url 'login' %}">here</a>
+			</small>
+		</div>
+{% endblock content %}

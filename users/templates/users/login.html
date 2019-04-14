@@ -1,0 +1,22 @@
+{% extends "listApp/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+	<div class="content-section">
+		<h1 style="font-family: Designer Block"> Connect to your account</h1>
+		<form method="POST">
+			{% csrf_token %}
+			<fieldset class="form-group">
+				{{ form | crispy }}
+				<div class="form-group">
+					<button class="btn btn-outline-info">Log In</button>
+				</div>
+			</fieldset>
+		</form>
+		<div class="border-top pt-3">
+			<small class="text-muted">
+				Still don't have an account? Sign up <a href="{% url 'register' %}">here</a><br />
+				Forgot your password? Reset it <a href="{% url 'password_reset' %}">here</a>
+			</small>
+		</div>
+	</div>
+{% endblock content %}

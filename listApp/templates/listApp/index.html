@@ -1,0 +1,25 @@
+{% extends "listApp/base.html" %}
+{% block content %}
+	<br />
+	<article class="media content-section">
+	  <div class="media-body">
+		<p style="text-align: left;">
+		  <span style="font-family: Designer Block; font-size: 50px"> My Lists</span>
+		  <span style="float: right; font-size: 50px"><a class="btn btn-info" href="{% url 'list-create' %}">Create New List</a></span>
+		</p>
+	  </div>
+	</article>
+	{% for list in lists %}
+		{% if list.author == user %}
+			<article class="media content-section">
+			  <div class="media-body">
+			    <div class="article-metadata">
+			      <span class="mr-2">{{ list.author }}</span>
+			    </div>
+			    <h2><a class="article-title" href="{% url 'list-detail' list.id %}">{{ list.title }}</a></h2>
+			    <p class="article-content">{{ list.description }}</p>
+			  </div>
+			</article>
+		{% endif %}
+	{% endfor %}
+{% endblock content %}

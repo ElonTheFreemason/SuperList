@@ -1,0 +1,17 @@
+{% extends "listApp/base.html" %}
+{% block content %}
+	<br />
+	<div class="content-section">
+		<h1 style="font-family: Designer Block"> Remove Access</h1>
+		<form method="POST">
+			{% csrf_token %}
+			<fieldset class="form-group">
+				<h2>Are you sure you want to remove {{ viewer.viewer }}'s access to this list?</h2>
+				<div class="form-group">
+					<button class="btn btn-outline-danger">Remove Access</button>
+					<a class="btn btn-outline-info" href="{% url 'viewer-detail' viewer.id %}">Cancel</a>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+{% endblock content %}

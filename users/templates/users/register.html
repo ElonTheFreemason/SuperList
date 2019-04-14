@@ -1,0 +1,21 @@
+{% extends "listApp/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+	<div class="content-section">
+		<h1 style="font-family: Designer Block"> Create an account</h1>
+		<form method="POST">
+			{% csrf_token %}
+			<fieldset class="form-group">
+				{{ form | crispy }}
+				<div class="form-group">
+					<button class="btn btn-outline-info">Create Account!</button>
+				</div>
+			</fieldset>
+		</form>
+		<div class="border-top pt-3">
+			<small class="text-muted">
+				Already have an account? Log In <a href="{% url 'login' %}">here</a>
+			</small>
+		</div>
+	</div>
+{% endblock content %}

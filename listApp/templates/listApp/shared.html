@@ -1,0 +1,26 @@
+{% extends "listApp/base.html" %}
+{% block content %}
+	<br />
+	<article class="media content-section">
+	  <h1 style="font-family: Designer Block; font-size: 50px"> My Shared Lists</h1>
+	</article>
+	{% for list in lists %}
+		{% for viewer in viewers %}
+			{% if user.username in viewer.viewer or user.email in viewer.viewer %}
+				{% if list.author != user %}
+					{% if list == viewer.theList %}
+						<article class="media content-section">
+						  <div class="media-body">
+						    <div class="article-metadata">
+						      <span class="mr-2">{{ list.author }}</span>
+						    </div>
+						    <h2><a class="article-title" href="{% url 'list-detail' list.id %}">{{ list.title }}</a></h2>
+						    <p class="article-content">{{ list.description }}</p>
+						  </div>
+						</article>
+					{% endif %}
+				{% endif %}
+			{% endif %}
+		{% endfor %}
+	{% endfor %}
+{% endblock content %}
